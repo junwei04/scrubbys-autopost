@@ -2,7 +2,7 @@ name: Post Set 1 - ROTOWASH Vinyl
 
 on:
   schedule:
-    - cron: '30 11 23 6 2026'
+    - cron: '30 11 23 6 *'
   workflow_dispatch:
 
 jobs:

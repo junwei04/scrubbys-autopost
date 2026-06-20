@@ -2,7 +2,7 @@ name: Post Set 2 - Window Deep Clean
 
 on:
   schedule:
-    - cron: '30 11 30 6 2026'
+    - cron: '30 11 30 6 *'
   workflow_dispatch:
 
 jobs:
