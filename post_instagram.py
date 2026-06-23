@@ -20,6 +20,7 @@ CAP_PATH   = f"{POST_DIR}/caption.txt"
 GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "junwei04/scrubbys-autopost")
 GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
 RAW_VIDEO_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{REEL_PATH}"
+RAW_THUMB_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{THUMB_PATH}"
 
 def log(msg):
     print(msg, flush=True)
@@ -60,10 +61,11 @@ log(f"FB Video ID: {fb_video_id}")
 # processing to fail with error 2207076 even when the video is spec-valid.
 # Confirmed by direct testing on 2026-06-23 — see feedback_cron_schedule_check
 # memory / session notes. The repo must be public for this URL to be fetchable.
-log(f"Step 2: Creating IG Reel container using {RAW_VIDEO_URL} ...")
+log(f"Step 2: Creating IG Reel container using {RAW_VIDEO_URL} (cover: {RAW_THUMB_URL}) ...")
 r = requests.post(
     f"https://graph.facebook.com/v21.0/{IG_ID}/media",
     data={"media_type": "REELS", "video_url": RAW_VIDEO_URL,
+          "cover_url": RAW_THUMB_URL,
           "caption": caption, "access_token": PAGE_TOKEN}
 )
 log(f"Container response: {r.status_code} {r.text[:200]}")
