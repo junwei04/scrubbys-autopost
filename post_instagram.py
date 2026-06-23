@@ -17,6 +17,10 @@ REEL_PATH  = f"{POST_DIR}/reel.mp4"
 THUMB_PATH = f"{POST_DIR}/thumb.jpg"
 CAP_PATH   = f"{POST_DIR}/caption.txt"
 
+GITHUB_REPO = os.environ.get("GITHUB_REPOSITORY", "junwei04/scrubbys-autopost")
+GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
+RAW_VIDEO_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{REEL_PATH}"
+
 def log(msg):
     print(msg, flush=True)
 
@@ -32,8 +36,8 @@ def tg(msg):
 with open(CAP_PATH) as f:
     caption = f.read().strip()
 
-# Step 1: Upload video to Facebook to get a fresh CDN URL
-log("Step 1: Uploading to Facebook for CDN URL...")
+# Step 1: Upload video to Facebook (published live — this is the FB post)
+log("Step 1: Uploading to Facebook...")
 with open(REEL_PATH, "rb") as vid, open(THUMB_PATH, "rb") as thumb:
     r = requests.post(
         f"https://graph.facebook.com/v21.0/{PAGE_ID}/videos",
@@ -51,20 +55,15 @@ if r.status_code != 200:
 fb_video_id = r.json()["id"]
 log(f"FB Video ID: {fb_video_id}")
 
-time.sleep(15)
-
-r = requests.get(
-    f"https://graph.facebook.com/v21.0/{fb_video_id}",
-    params={"fields": "source", "access_token": PAGE_TOKEN}
-)
-video_url = r.json().get("source")
-log(f"CDN URL obtained: {video_url[:60]}...")
-
-# Step 2: Create IG Reel container
-log("Step 2: Creating IG Reel container...")
+# Step 2: Create IG Reel container — use the GitHub-hosted raw file directly.
+# Relaying through Facebook's own CDN URL here causes Instagram's Reels
+# processing to fail with error 2207076 even when the video is spec-valid.
+# Confirmed by direct testing on 2026-06-23 — see feedback_cron_schedule_check
+# memory / session notes. The repo must be public for this URL to be fetchable.
+log(f"Step 2: Creating IG Reel container using {RAW_VIDEO_URL} ...")
 r = requests.post(
     f"https://graph.facebook.com/v21.0/{IG_ID}/media",
-    data={"media_type": "REELS", "video_url": video_url,
+    data={"media_type": "REELS", "video_url": RAW_VIDEO_URL,
           "caption": caption, "access_token": PAGE_TOKEN}
 )
 log(f"Container response: {r.status_code} {r.text[:200]}")
