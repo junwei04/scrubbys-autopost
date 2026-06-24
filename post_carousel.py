@@ -17,6 +17,9 @@ GRAPH      = "https://graph.facebook.com/v21.0"
 
 CAP_PATH   = f"{POST_DIR}/caption.txt"
 
+GITHUB_REPO   = os.environ.get("GITHUB_REPOSITORY", "junwei04/scrubbys-autopost")
+GITHUB_BRANCH = os.environ.get("GITHUB_REF_NAME", "main")
+
 def log(msg):
     print(msg, flush=True)
 
@@ -40,47 +43,18 @@ if not slides:
     tg(f"❌ {SET_LABEL} — No slides found in {POST_DIR}")
     sys.exit(1)
 
-# Step 1: Upload each slide to Facebook (unpublished) → get CDN URL
-log("Step 1: Uploading slides to Facebook for CDN URLs...")
+# Step 1: Build public GitHub-raw URLs for each slide directly.
+# (Previously relayed each slide through Facebook's /photos endpoint to get
+# a CDN URL — removed after discovering Instagram's Reels processing rejects
+# FB-relayed video URLs with error 2207076. Same risk applies to images, so
+# slides are now hosted directly via GitHub raw URLs instead. Repo must be
+# public for these URLs to be fetchable by Instagram.)
+log("Step 1: Building GitHub-hosted URLs for slides...")
 cdn_urls = []
-
 for i, slide_path in enumerate(slides, 1):
-    log(f"  Uploading slide {i}/{len(slides)}: {os.path.basename(slide_path)}")
-    with open(slide_path, "rb") as img:
-        r = requests.post(
-            f"{GRAPH}/{PAGE_ID}/photos",
-            data={
-                "published": "false",
-                "temporary": "true",
-                "access_token": PAGE_TOKEN
-            },
-            files={"source": (os.path.basename(slide_path), img, "image/png")},
-            timeout=60
-        )
-    if r.status_code != 200:
-        log(f"  FAILED: {r.text}")
-        tg(f"❌ {SET_LABEL} — Failed to upload slide {i}: {r.text[:100]}")
-        sys.exit(1)
-
-    photo_id = r.json()["id"]
-    log(f"  Photo ID: {photo_id}")
-
-    # Get CDN URL from photo
-    r2 = requests.get(
-        f"{GRAPH}/{photo_id}",
-        params={"fields": "images", "access_token": PAGE_TOKEN}
-    )
-    images = r2.json().get("images", [])
-    if not images:
-        log(f"  Could not get CDN URL: {r2.text}")
-        tg(f"❌ {SET_LABEL} — No CDN URL for slide {i}")
-        sys.exit(1)
-
-    # Use largest image
-    cdn_url = max(images, key=lambda x: x.get("width", 0))["source"]
-    log(f"  CDN URL: {cdn_url[:60]}...")
-    cdn_urls.append(cdn_url)
-    time.sleep(1)
+    raw_url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/{GITHUB_BRANCH}/{slide_path}"
+    log(f"  Slide {i}/{len(slides)}: {raw_url}")
+    cdn_urls.append(raw_url)
 
 # Step 2: Create IG carousel item containers
 log(f"\nStep 2: Creating {len(cdn_urls)} IG carousel item containers...")
