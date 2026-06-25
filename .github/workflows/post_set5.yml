@@ -2,7 +2,7 @@ name: Post Set 5 - Bathroom Deep Clean Carousel
 
 on:
   schedule:
-    - cron: '30 11 30 6 *'
+    - cron: '30 11 1 7 *'
   workflow_dispatch:
 
 jobs:
