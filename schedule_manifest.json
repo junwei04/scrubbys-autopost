@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Set 3 (Sofa Deep Clean)",
+    "dir": "posts/set3",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-06-26T11:30:00"
+  },
+  {
+    "name": "Set 5 (Bathroom Deep Clean)",
+    "dir": "posts/set5",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-07-01T11:30:00"
+  },
+  {
+    "name": "Set 6 (Oven Degreasing)",
+    "dir": "posts/set6",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-07-07T11:30:00"
+  }
+]
