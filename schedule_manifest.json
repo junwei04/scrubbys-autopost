@@ -1,5 +1,11 @@
 [
   {
+    "name": "Set 2 (Window Deep Clean) — IG catchup",
+    "dir": "posts/set2",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-06-30T13:30:00"
+  },
+  {
     "name": "Set 3 (Sofa Deep Clean)",
     "dir": "posts/set3",
     "script": "post_carousel.py",
