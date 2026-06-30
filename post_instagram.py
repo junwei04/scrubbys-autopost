@@ -37,24 +37,73 @@ def tg(msg):
 with open(CAP_PATH) as f:
     caption = f.read().strip()
 
-# Step 1: Upload video to Facebook (published live — this is the FB post)
-log("Step 1: Uploading to Facebook...")
-with open(REEL_PATH, "rb") as vid, open(THUMB_PATH, "rb") as thumb:
-    r = requests.post(
-        f"https://graph.facebook.com/v21.0/{PAGE_ID}/videos",
-        data={"published": "true", "access_token": PAGE_TOKEN},
-        files={"source": ("reel.mp4", vid, "video/mp4"),
-               "thumb":  ("thumb.jpg", thumb, "image/jpeg")},
-        timeout=180
+CAPTION_MATCH_LEN = 60  # first N chars used to detect "is this already posted"
+
+def already_posted_on_facebook():
+    """Check the last 10 Page posts for one whose message starts with our
+    caption. Returns True if found (recent native-scheduler or prior-run post
+    already exists) so we never re-upload and duplicate."""
+    r = requests.get(
+        f"https://graph.facebook.com/v21.0/{PAGE_ID}/posts",
+        params={"fields": "message,created_time", "limit": 10, "access_token": PAGE_TOKEN}
     )
+    if r.status_code != 200:
+        return False
+    needle = caption[:CAPTION_MATCH_LEN]
+    for p in r.json().get("data", []):
+        if (p.get("message") or "").startswith(needle):
+            return True
+    return False
 
-if r.status_code != 200:
-    log(f"FB upload failed: {r.text}")
-    tg(f"❌ {SET_LABEL} — Facebook upload failed")
-    sys.exit(1)
+def already_posted_on_instagram():
+    """Same idempotency check for Instagram."""
+    r = requests.get(
+        f"https://graph.facebook.com/v21.0/{IG_ID}/media",
+        params={"fields": "caption,timestamp", "limit": 10, "access_token": PAGE_TOKEN}
+    )
+    if r.status_code != 200:
+        return False
+    needle = caption[:CAPTION_MATCH_LEN]
+    for m in r.json().get("data", []):
+        if (m.get("caption") or "").startswith(needle):
+            return True
+    return False
 
-fb_video_id = r.json()["id"]
-log(f"FB Video ID: {fb_video_id}")
+# Step 0: Idempotency check — this script may be re-run by the watchdog if the
+# scheduled trigger was missed, or a native Meta scheduler may have already
+# posted this exact content (see feedback_dual_posting_systems memory). Never
+# blindly re-post; always check live platform state first.
+if already_posted_on_instagram():
+    log("Already posted on Instagram (matching caption found) — nothing to do.")
+    tg(f"ℹ️ {SET_LABEL} — already live on Instagram, watchdog/retry skipped (no duplicate)")
+    sys.exit(0)
+
+fb_already_live = already_posted_on_facebook()
+if fb_already_live:
+    log("Facebook already has this post (e.g. native scheduler fired) — skipping FB upload, proceeding to Instagram only.")
+
+# Step 1: Upload video to Facebook (published live — this is the FB post)
+# SKIPPED if Facebook already has a matching post, to avoid duplicating it.
+if not fb_already_live:
+    log("Step 1: Uploading to Facebook...")
+    with open(REEL_PATH, "rb") as vid, open(THUMB_PATH, "rb") as thumb:
+        r = requests.post(
+            f"https://graph.facebook.com/v21.0/{PAGE_ID}/videos",
+            data={"published": "true", "access_token": PAGE_TOKEN},
+            files={"source": ("reel.mp4", vid, "video/mp4"),
+                   "thumb":  ("thumb.jpg", thumb, "image/jpeg")},
+            timeout=180
+        )
+
+    if r.status_code != 200:
+        log(f"FB upload failed: {r.text}")
+        tg(f"❌ {SET_LABEL} — Facebook upload failed")
+        sys.exit(1)
+
+    fb_video_id = r.json()["id"]
+    log(f"FB Video ID: {fb_video_id}")
+else:
+    log("Step 1: Skipped (Facebook already live).")
 
 # Step 2: Create IG Reel container — use the GitHub-hosted raw file directly.
 # Relaying through Facebook's own CDN URL here causes Instagram's Reels

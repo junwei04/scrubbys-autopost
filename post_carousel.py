@@ -35,6 +35,28 @@ def tg(msg):
 with open(CAP_PATH) as f:
     caption = f.read().strip()
 
+CAPTION_MATCH_LEN = 60
+
+def already_posted_on_instagram():
+    """Idempotency check — never re-post if a matching caption already exists
+    (e.g. this script being re-run by the watchdog after a missed schedule)."""
+    r = requests.get(
+        f"{GRAPH}/{IG_ID}/media",
+        params={"fields": "caption,timestamp", "limit": 10, "access_token": PAGE_TOKEN}
+    )
+    if r.status_code != 200:
+        return False
+    needle = caption[:CAPTION_MATCH_LEN]
+    for m in r.json().get("data", []):
+        if (m.get("caption") or "").startswith(needle):
+            return True
+    return False
+
+if already_posted_on_instagram():
+    log("Already posted on Instagram (matching caption found) — nothing to do.")
+    tg(f"ℹ️ {SET_LABEL} — already live on Instagram, watchdog/retry skipped (no duplicate)")
+    sys.exit(0)
+
 # Collect slides in order
 slides = sorted(glob.glob(f"{POST_DIR}/slide_*.png"))
 log(f"Found {len(slides)} slides: {[os.path.basename(s) for s in slides]}")
