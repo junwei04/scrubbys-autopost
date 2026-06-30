@@ -12,12 +12,20 @@ GitHub drops it.
 This watchdog is the fix: it runs frequently and re-checks every post in
 schedule_manifest.json. For each one whose scheduled time (+ grace period)
 has passed, it re-runs the post script unconditionally. Since post_instagram.py
-and post_carousel.py are now idempotent (they check live platform state before
+and post_carousel.py are idempotent (they check live platform state before
 posting to either platform and skip if already there — see commit f83cffd),
 repeatedly invoking them is always safe:
   - If the original per-Set cron fired correctly, this run is a silent no-op.
   - If it was dropped, this run completes the post, at most ~15 min late
     instead of indefinitely missing.
+
+This script deliberately does NOT write back to the repo (no auto-commit/push)
+— that's a meaningfully bigger capability than "retry a post" and wasn't
+separately authorized. Confirmed-posted entries are skipped SILENTLY (console
+log only, no Telegram message, no manifest mutation) every run rather than
+pruned, so re-checking a long-done entry stays cheap and never spams or false-
+alarms. schedule_manifest.json should be manually trimmed of old completed
+entries periodically as routine maintenance — not automated.
 
 Do not remove the per-Set cron triggers in favour of this watchdog alone —
 keep both. They are complementary: the per-Set cron is the primary path when
@@ -29,7 +37,8 @@ from datetime import datetime, timezone, timedelta
 GRACE_MINUTES = 15      # don't fire until this long after scheduled time
 MAX_RETRY_HOURS = 48    # stop auto-retrying after this long, escalate instead
 
-MANIFEST_PATH = os.path.join(os.path.dirname(__file__), "schedule_manifest.json")
+REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+MANIFEST_PATH = os.path.join(REPO_DIR, "schedule_manifest.json")
 
 TG_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TG_CHAT = os.environ["TELEGRAM_CHAT_ID"]
@@ -46,6 +55,26 @@ def tg(msg):
         print(f"Telegram notify failed: {e}", flush=True)
 
 
+def is_already_posted(entry):
+    """Checks Instagram for a matching-caption post. Used to decide whether to
+    skip silently (already done) before attempting anything, so the watchdog
+    never sends a false 'still not posted' alarm for something that actually
+    succeeded, and never re-runs a post script unnecessarily."""
+    import requests
+    with open(os.path.join(REPO_DIR, entry["dir"], "caption.txt")) as f:
+        caption = f.read().strip()
+    needle = caption[:60]
+    ig_id = os.environ["IG_USER_ID"]
+    page_token = os.environ["PAGE_TOKEN"]
+    r = requests.get(
+        f"https://graph.facebook.com/v21.0/{ig_id}/media",
+        params={"fields": "caption,timestamp", "limit": 15, "access_token": page_token},
+    )
+    if r.status_code != 200:
+        return False
+    return any((m.get("caption") or "").startswith(needle) for m in r.json().get("data", []))
+
+
 def main():
     now = datetime.now(timezone.utc)
     with open(MANIFEST_PATH) as f:
@@ -58,19 +87,25 @@ def main():
 
         if now < grace_deadline:
             continue  # not due yet
-        if now > max_deadline:
-            # Overdue beyond the auto-retry window — escalate once per day rather
-            # than spamming every 15 minutes forever.
-            if now.hour == scheduled.hour and now.minute < 15:
-                tg(f"🚨 {entry['name']} is still not confirmed posted, "
-                   f"{MAX_RETRY_HOURS}h past its scheduled time. Watchdog has stopped "
-                   f"auto-retrying — needs manual investigation.")
+
+        if is_already_posted(entry):
+            print(f"{entry['name']}: already posted, skipping silently.", flush=True)
             continue
 
-        print(f"[{now.isoformat()}] {entry['name']} is due (scheduled {entry['scheduled_utc']}, "
-              f"grace passed) — running {entry['script']} {entry['dir']}", flush=True)
+        if now > max_deadline:
+            # Escalate at most once per day (only in the first 15-min tick of
+            # the scheduled hour) rather than every run.
+            if now.hour == scheduled.hour and now.minute < 15:
+                tg(f"🚨 {entry['name']} is still not posted, {MAX_RETRY_HOURS}h past its "
+                   f"scheduled time. Watchdog has stopped auto-retrying — needs manual "
+                   f"investigation.")
+            continue
+
+        print(f"[{now.isoformat()}] {entry['name']} is due and not yet posted — "
+              f"running {entry['script']} {entry['dir']}", flush=True)
         result = subprocess.run(
             [sys.executable, entry["script"], entry["dir"]],
+            cwd=REPO_DIR,
             env={**os.environ, "SET_LABEL": entry["name"]},
             capture_output=True, text=True,
         )
