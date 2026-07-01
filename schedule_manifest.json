@@ -1,5 +1,11 @@
 [
   {
+    "name": "Set 4 (Post Renovation Cleaning)",
+    "dir": "posts/set4",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-07-03T11:30:00"
+  },
+  {
     "name": "Set 6 (Oven Degreasing)",
     "dir": "posts/set6",
     "script": "post_instagram.py",
