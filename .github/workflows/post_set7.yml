@@ -2,7 +2,7 @@ name: Post Set 7 - Condo Deep Clean Carousel
 
 on:
   schedule:
-    - cron: '30 11 10 7 *'
+    - cron: '30 7 11 7 *'
   workflow_dispatch:
 
 jobs:
