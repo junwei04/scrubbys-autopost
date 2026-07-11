@@ -1,14 +1,26 @@
 [
   {
-    "name": "Set 4 (Post Renovation Cleaning)",
-    "dir": "posts/set4",
-    "script": "post_instagram.py",
-    "scheduled_utc": "2026-07-03T11:30:00"
+    "name": "Set 7 (Condo Deep Clean)",
+    "dir": "posts/set7",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-07-10T11:30:00"
   },
   {
-    "name": "Set 6 (Oven Degreasing)",
-    "dir": "posts/set6",
+    "name": "Set 8 (Window Clean and Polish)",
+    "dir": "posts/set8",
     "script": "post_instagram.py",
-    "scheduled_utc": "2026-07-07T11:30:00"
+    "scheduled_utc": "2026-07-13T11:30:00"
+  },
+  {
+    "name": "Set 10 (Rotowash Floor Scrub)",
+    "dir": "posts/set10",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-07-15T11:30:00"
+  },
+  {
+    "name": "Set 9 (Curtain Steam Clean)",
+    "dir": "posts/set9",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-07-17T11:30:00"
   }
 ]
