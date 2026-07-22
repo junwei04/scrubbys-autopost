@@ -1,8 +1,14 @@
 [
   {
-    "name": "Set 11 (Post Reno Clean)",
-    "dir": "posts/set11",
+    "name": "Set 12 (Spring Cleaning)",
+    "dir": "posts/set12",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-07-23T11:30:00"
+  },
+  {
+    "name": "Set 13 (Bathroom Ladder Access)",
+    "dir": "posts/set13",
     "script": "post_instagram.py",
-    "scheduled_utc": "2026-07-22T12:00:00"
+    "scheduled_utc": "2026-07-25T11:30:00"
   }
 ]
