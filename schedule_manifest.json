@@ -1,26 +1,8 @@
 [
   {
-    "name": "Set 7 (Condo Deep Clean)",
-    "dir": "posts/set7",
-    "script": "post_carousel.py",
-    "scheduled_utc": "2026-07-10T11:30:00"
-  },
-  {
-    "name": "Set 8 (Window Clean and Polish)",
-    "dir": "posts/set8",
+    "name": "Set 11 (Post Reno Clean)",
+    "dir": "posts/set11",
     "script": "post_instagram.py",
-    "scheduled_utc": "2026-07-13T11:30:00"
-  },
-  {
-    "name": "Set 10 (Rotowash Floor Scrub)",
-    "dir": "posts/set10",
-    "script": "post_carousel.py",
-    "scheduled_utc": "2026-07-15T11:30:00"
-  },
-  {
-    "name": "Set 9 (Curtain Steam Clean)",
-    "dir": "posts/set9",
-    "script": "post_instagram.py",
-    "scheduled_utc": "2026-07-17T11:30:00"
+    "scheduled_utc": "2026-07-22T12:00:00"
   }
 ]
