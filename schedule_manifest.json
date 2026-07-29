@@ -4,5 +4,17 @@
     "dir": "posts/set14",
     "script": "post_instagram.py",
     "scheduled_utc": "2026-07-28T11:30:00"
+  },
+  {
+    "name": "Set 15 (Steam Clean)",
+    "dir": "posts/set15",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-07-30T11:30:00"
+  },
+  {
+    "name": "Set 16 (Spring Cleaning)",
+    "dir": "posts/set16",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-08-01T11:30:00"
   }
 ]
