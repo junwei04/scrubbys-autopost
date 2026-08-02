@@ -16,5 +16,17 @@
     "dir": "posts/set16",
     "script": "post_instagram.py",
     "scheduled_utc": "2026-08-01T11:30:00"
+  },
+  {
+    "name": "Set 17 (Rotowash Floor Scrub)",
+    "dir": "posts/set17",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-08-04T11:30:00"
+  },
+  {
+    "name": "Set 18 (Luxury Detail Carousel)",
+    "dir": "posts/set18",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-08-06T11:30:00"
   }
 ]
