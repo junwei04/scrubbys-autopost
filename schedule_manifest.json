@@ -4,5 +4,11 @@
     "dir": "posts/set19",
     "script": "post_instagram.py",
     "scheduled_utc": "2026-08-11T11:30:00"
+  },
+  {
+    "name": "Set 22 (Long Form Rotowash)",
+    "dir": "posts/set22",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-08-14T11:30:00"
   }
 ]
