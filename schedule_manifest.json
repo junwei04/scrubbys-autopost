@@ -1,8 +1,14 @@
 [
   {
-    "name": "Set 23 (Steam Clean Carousel)",
-    "dir": "posts/set23",
-    "script": "post_carousel.py",
-    "scheduled_utc": "2026-08-19T11:30:00"
+    "name": "Set 24 (Curtain & Blind Steam Clean)",
+    "dir": "posts/set24",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-08-22T11:30:00"
+  },
+  {
+    "name": "Set 25 (DM Mockup Detail Clean)",
+    "dir": "posts/set25",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-08-24T11:30:00"
   }
 ]
