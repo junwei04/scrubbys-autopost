@@ -1,8 +1,8 @@
 [
   {
-    "name": "Set 28 (FAQ Carousel)",
-    "dir": "posts/set28",
+    "name": "Set 29 (yuu Rewards Partnership Launch)",
+    "dir": "posts/set29",
     "script": "post_carousel.py",
-    "scheduled_utc": "2026-08-30T11:30:00"
+    "scheduled_utc": "2026-09-02T11:30:00"
   }
 ]
