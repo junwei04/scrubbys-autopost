@@ -4,5 +4,11 @@
     "dir": "posts/set31",
     "script": "post_carousel.py",
     "scheduled_utc": "2026-09-07T11:30:00"
+  },
+  {
+    "name": "Set 32 (Built-In Storage Shower Fixtures Carousel)",
+    "dir": "posts/set32",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-09-09T11:30:00"
   }
 ]
