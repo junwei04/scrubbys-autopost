@@ -1,8 +1,8 @@
 [
   {
-    "name": "Set 29 (yuu Rewards Partnership Launch)",
-    "dir": "posts/set29",
+    "name": "Set 31 (Ceiling Fan Wardrobe Bathroom Carousel)",
+    "dir": "posts/set31",
     "script": "post_carousel.py",
-    "scheduled_utc": "2026-09-02T11:30:00"
+    "scheduled_utc": "2026-09-07T11:30:00"
   }
 ]
