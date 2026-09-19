@@ -4,5 +4,17 @@
     "dir": "posts/set33",
     "script": "post_carousel.py",
     "scheduled_utc": "2026-09-21T11:30:00"
+  },
+  {
+    "name": "Set 35 (Formaldehyde Comment Bait Carousel)",
+    "dir": "posts/set35",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-09-23T11:30:00"
+  },
+  {
+    "name": "Set 36 (Job Story Part 1 Carousel)",
+    "dir": "posts/set36",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-09-25T11:30:00"
   }
 ]
