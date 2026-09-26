@@ -1,20 +1,20 @@
 [
   {
-    "name": "Set 33 (Post HIP Clean Carousel)",
-    "dir": "posts/set33",
+    "name": "Set 37 (Job Story Part 2 Carousel)",
+    "dir": "posts/set37",
     "script": "post_carousel.py",
-    "scheduled_utc": "2026-09-21T11:30:00"
+    "scheduled_utc": "2026-09-28T11:30:00"
   },
   {
-    "name": "Set 35 (Formaldehyde Comment Bait Carousel)",
-    "dir": "posts/set35",
+    "name": "Set 38 (Post Reno Move-In Carousel)",
+    "dir": "posts/set38",
     "script": "post_carousel.py",
-    "scheduled_utc": "2026-09-23T11:30:00"
+    "scheduled_utc": "2026-09-30T11:30:00"
   },
   {
-    "name": "Set 36 (Job Story Part 1 Carousel)",
-    "dir": "posts/set36",
+    "name": "Set 39 (Rotowash Floor Scrub Carousel)",
+    "dir": "posts/set39",
     "script": "post_carousel.py",
-    "scheduled_utc": "2026-09-25T11:30:00"
+    "scheduled_utc": "2026-10-02T11:30:00"
   }
 ]
