@@ -1,7 +1,8 @@
 name: Post Set 40 - Window and Room Walkthrough Reel
 
 on:
-  # not scheduled yet, pending Jun Wei's confirmation
+  schedule:
+    - cron: '30 11 5 10 *'
   workflow_dispatch:
 
 jobs:

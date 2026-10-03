@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "name": "Set 40 (Window and Room Walkthrough Reel)",
+    "dir": "posts/set40",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-10-05T11:30:00"
+  }
+]
