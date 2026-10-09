@@ -1,9 +1,8 @@
 name: Post Set 37 - Job Story Part 2 Carousel
 
 on:
-  # schedule trigger removed 2026-09-27 pending fixes, see caption_log/footage_catalogue
-  # schedule:
-  #   - cron: disabled
+  schedule:
+    - cron: '30 11 10 10 *'
   workflow_dispatch:
 
 jobs:

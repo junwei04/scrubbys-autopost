@@ -1,9 +1,8 @@
 name: Post Set 39 - Rotowash Floor Scrub Carousel
 
 on:
-  # schedule trigger removed 2026-09-27 pending fixes, see caption_log/footage_catalogue
-  # schedule:
-  #   - cron: disabled
+  schedule:
+    - cron: '30 11 16 10 *'
   workflow_dispatch:
 
 jobs:

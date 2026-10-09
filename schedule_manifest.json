@@ -1,8 +1,38 @@
 [
   {
-    "name": "Set 40 (Window and Room Walkthrough Reel)",
-    "dir": "posts/set40",
+    "name": "Set 37 (Job Story Part 2 Carousel)",
+    "dir": "posts/set37",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-10T11:30:00"
+  },
+  {
+    "name": "Set 38 (Post Reno Move-In Carousel)",
+    "dir": "posts/set38",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-12T11:30:00"
+  },
+  {
+    "name": "Set 42 (Formaldehyde Treatment Carousel)",
+    "dir": "posts/set42",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-14T11:30:00"
+  },
+  {
+    "name": "Set 39 (Rotowash Floor Scrub Carousel)",
+    "dir": "posts/set39",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-16T11:30:00"
+  },
+  {
+    "name": "Set 43 (Spring Cleaning Carousel)",
+    "dir": "posts/set43",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-18T11:30:00"
+  },
+  {
+    "name": "Set 41 (Rotowash Not Just Homes Reel)",
+    "dir": "posts/set41",
     "script": "post_instagram.py",
-    "scheduled_utc": "2026-10-05T11:30:00"
+    "scheduled_utc": "2026-10-20T11:30:00"
   }
 ]
