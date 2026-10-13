@@ -24,12 +24,6 @@
     "scheduled_utc": "2026-10-16T11:30:00"
   },
   {
-    "name": "Set 43 (Spring Cleaning Carousel)",
-    "dir": "posts/set43",
-    "script": "post_carousel.py",
-    "scheduled_utc": "2026-10-18T11:30:00"
-  },
-  {
     "name": "Set 41 (Rotowash Not Just Homes Reel)",
     "dir": "posts/set41",
     "script": "post_instagram.py",
