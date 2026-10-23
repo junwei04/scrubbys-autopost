@@ -1,9 +1,8 @@
 name: Post Set 48 - Rotowash Machine Up Close Reel
 
 on:
-  # schedule trigger withheld pending Jun Wei's confirmation
-  # schedule:
-  #   - cron: '30 11 29 10 *'
+  schedule:
+    - cron: '30 11 29 10 *'
   workflow_dispatch:
 
 jobs:

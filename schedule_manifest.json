@@ -28,5 +28,35 @@
     "dir": "posts/set41",
     "script": "post_instagram.py",
     "scheduled_utc": "2026-10-20T11:30:00"
+  },
+  {
+    "name": "Set 44 (Window Tracks Carousel)",
+    "dir": "posts/set44",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-23T11:30:00"
+  },
+  {
+    "name": "Set 46 (Landed House After Reel)",
+    "dir": "posts/set46",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-10-25T11:30:00"
+  },
+  {
+    "name": "Set 47 (Questions We Get Asked Carousel)",
+    "dir": "posts/set47",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-27T11:30:00"
+  },
+  {
+    "name": "Set 48 (Rotowash Machine Up Close Reel)",
+    "dir": "posts/set48",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-10-29T11:30:00"
+  },
+  {
+    "name": "Set 49 (Which Clean Do You Need Carousel)",
+    "dir": "posts/set49",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-10-31T11:30:00"
   }
 ]

@@ -1,9 +1,8 @@
 name: Post Set 47 - Questions We Get Asked Carousel
 
 on:
-  # schedule trigger withheld pending Jun Wei's confirmation
-  # schedule:
-  #   - cron: '30 11 27 10 *'
+  schedule:
+    - cron: '30 11 27 10 *'
   workflow_dispatch:
 
 jobs:

@@ -1,9 +1,8 @@
 name: Post Set 49 - Which Clean Do You Need Carousel
 
 on:
-  # schedule trigger withheld pending Jun Wei's confirmation
-  # schedule:
-  #   - cron: '30 11 31 10 *'
+  schedule:
+    - cron: '30 11 31 10 *'
   workflow_dispatch:
 
 jobs:
