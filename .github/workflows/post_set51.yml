@@ -1,8 +1,8 @@
 name: Post Set 51 - How Often To Clean Carousel
 
 on:
-  # schedule:
-  #   - cron: '30 11 2 11 *'
+  schedule:
+    - cron: '30 11 2 11 *'
   workflow_dispatch:
 
 jobs:

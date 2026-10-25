@@ -58,5 +58,17 @@
     "dir": "posts/set49",
     "script": "post_carousel.py",
     "scheduled_utc": "2026-10-31T11:30:00"
+  },
+  {
+    "name": "Set 51 (How Often To Clean Carousel)",
+    "dir": "posts/set51",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-11-02T11:30:00"
+  },
+  {
+    "name": "Set 50 (Cooker Hood Inside Reel)",
+    "dir": "posts/set50",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-11-04T11:30:00"
   }
 ]

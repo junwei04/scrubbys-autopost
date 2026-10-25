@@ -1,8 +1,8 @@
 name: Post Set 50 - Cooker Hood Inside Reel
 
 on:
-  # schedule:
-  #   - cron: '30 11 4 11 *'
+  schedule:
+    - cron: '30 11 4 11 *'
   workflow_dispatch:
 
 jobs:
