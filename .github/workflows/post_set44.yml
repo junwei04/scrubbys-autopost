@@ -1,6 +1,7 @@
 name: Post Set 44 - Window Tracks Carousel
 
 on:
+  # POSTED: fired through the schedule manifest on 2026-10-23 (the watchdog posted it)
   # schedule trigger withheld pending Jun Wei's confirmation
   # schedule:
   #   - cron: '30 11 23 10 *'

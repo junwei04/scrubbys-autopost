@@ -1,8 +1,10 @@
 name: Post Set 50 - Cooker Hood Inside Reel
 
 on:
-  schedule:
-    - cron: '30 11 4 11 *'
+  # schedule switched off after this set posted: a day and month cron has no year, so it would fire again next year and
+  # the already posted check only looks at the last 10 posts (retire_posted_sets.py). Original lines kept below.
+  # schedule:
+  #   - cron: '30 11 4 11 *'
   workflow_dispatch:
 
 jobs:
