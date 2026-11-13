@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "name": "Set 52 (What Landlords Check At Handover Carousel)",
+    "dir": "posts/set52",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-11-13T11:30:00"
+  },
+  {
+    "name": "Set 53 (General Wash Long Reel)",
+    "dir": "posts/set53",
+    "script": "post_instagram.py",
+    "scheduled_utc": "2026-11-15T11:30:00"
+  },
+  {
+    "name": "Set 54 (How Your Quote Works Carousel)",
+    "dir": "posts/set54",
+    "script": "post_carousel.py",
+    "scheduled_utc": "2026-11-17T11:30:00"
+  }
+]

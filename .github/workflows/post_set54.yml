@@ -1,9 +1,9 @@
 name: Post Set 54 - How Your Quote Works Carousel
 
 on:
-  # schedule trigger withheld pending Jun Wei's confirmation
-  # schedule:
-  #   - cron: '30 11 17 11 *'
+  # approved by Jun Wei 2026-11-13 ("approve all")
+  schedule:
+    - cron: '30 11 17 11 *'
   workflow_dispatch:
 
 jobs:
